@@ -48,8 +48,8 @@ class ViewController: UIViewController {
         let bill = Double(billField.text!) ?? 0
         let tip = bill*tipPercent[tipControl.selectedSegmentIndex]
         let total = bill+tip
-        tipLabel.text = String(format:"$%.2f",tip)
-        totalLabel.text = String(format:"$%.2f",total)
+        tipLabel.text = String(format: getCurrencySymbol()+"$%.2f",tip)
+        totalLabel.text = String(format: getCurrencySymbol()+"$%.2f",total)
     }
     
     override func viewWillAppear(_ animated: Bool) {
