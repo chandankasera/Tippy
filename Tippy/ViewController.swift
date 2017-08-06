@@ -33,6 +33,13 @@ class ViewController: UIViewController {
         return locale.currencySymbol!
         
     }
+    
+    func retainBillValue() {
+        let defaults = UserDefaults.standard
+        defaults.set(billField.text, forKey: "defaults.billValue")
+        defaults.set(NSDate(), forKey: "defaults.billDate")
+        defaults.synchronize()
+    }
 
    
     @IBAction func tipControlChanged(_ sender: Any) {
@@ -44,12 +51,13 @@ class ViewController: UIViewController {
         totalLabel.text = String(format:"$%.2f",total)
     }
     @IBAction func calculateTip(_ sender: Any) {
+        retainBillValue()
         let tipPercent = [0.18, 0.20 , 0.25]
         let bill = Double(billField.text!) ?? 0
         let tip = bill*tipPercent[tipControl.selectedSegmentIndex]
         let total = bill+tip
-        tipLabel.text = String(format: getCurrencySymbol()+"$%.2f",tip)
-        totalLabel.text = String(format: getCurrencySymbol()+"$%.2f",total)
+        tipLabel.text = String(format: getCurrencySymbol()+"%.2f",tip)
+        totalLabel.text = String(format: getCurrencySymbol()+"%.2f",total)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -62,14 +70,20 @@ class ViewController: UIViewController {
         tipControl.selectedSegmentIndex = intValue
         }
         print(getCurrencySymbol())
-        tipLabel.text=getCurrencySymbol()+"0.00"
-        totalLabel.text=getCurrencySymbol()+"0.00"
+       tipLabel.text=getCurrencySymbol()+"0.00"
+       totalLabel.text=getCurrencySymbol()+"0.00"
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         print("view did appear")
          billField.becomeFirstResponder()
+        let refDate = UserDefaults.standard.object(forKey :"defaults.billDate") as? NSDate
+        if (refDate != nil && integer_t(NSDate().timeIntervalSince(refDate! as Date)) < 600) {
+            billField.text = UserDefaults.standard.object(forKey : "defaults.billValue") as? String
+        }
+        //reset the tip Label and totalLabel
+        calculateTip(self)
         
 
     }
