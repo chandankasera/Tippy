@@ -41,11 +41,11 @@ As part of your pre-work submission, please reflect on the app and answer the fo
 **Question 1**: "What are your reactions to the iOS app development platform so far? How would you describe outlets and actions to another developer? Bonus: any idea how they are being implemented under the hood? (It might give you some ideas if you right-click on the Storyboard and click Open As->Source Code")
 
 **Answer:**  iOS develpoment is fun. I didnt know that it is so easy to create a app. 
-outlet are like a pointer/refrence to the UI component. Action are like trigger which get fired when someone does some action on a particular component.
+outlet are like a pointer/refrence to the UI component. Action are like trigger which get fired when someone does some action on a particular component. They are implemented as XML view denoted by eventtype .
 
 Question 2: "Swift uses [Automatic Reference Counting](https://developer.apple.com/library/content/documentation/Swift/Conceptual/Swift_Programming_Language/AutomaticReferenceCounting.html#//apple_ref/doc/uid/TP40014097-CH20-ID49) (ARC), which is not a garbage collector, to manage memory. Can you explain how you can get a strong reference cycle for closures? (There's a section explaining this concept in the link, how would you summarize as simply as possible?)"
 
-**Answer:** [Enter your answer here in a paragraph or two].
+**Answer:** A strong reference cycle can occur if you assign a closure to a property of a class instance, and the body of that closure captures the instance. This capture might occur because the closure’s body accesses a property of the instance, such as self.someProperty, or because the closure calls a method on the instance, such as self.someMethod(). In either case, these accesses cause the closure to “capture” self, creating a strong reference cycle.
 
 
 ## License
