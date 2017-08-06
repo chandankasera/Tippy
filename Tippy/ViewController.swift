@@ -28,6 +28,12 @@ class ViewController: UIViewController {
     @IBAction func onTap(_ sender: UITapGestureRecognizer) {
         view.endEditing(true)
     }
+    func getCurrencySymbol() -> String {
+        let locale = NSLocale.current
+        return locale.currencySymbol!
+        
+    }
+
    
     @IBAction func tipControlChanged(_ sender: Any) {
         let tipPercent = [0.18, 0.20 , 0.25]
@@ -55,6 +61,9 @@ class ViewController: UIViewController {
         let intValue = defaults.integer(forKey: "defaultPercentIndex")
         tipControl.selectedSegmentIndex = intValue
         }
+        print(getCurrencySymbol())
+        tipLabel.text=getCurrencySymbol()+"0.00"
+        totalLabel.text=getCurrencySymbol()+"0.00"
     }
     
     override func viewDidAppear(_ animated: Bool) {
